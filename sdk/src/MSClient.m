@@ -15,7 +15,9 @@
 #import "MSSyncTable.h"
 #import "MSPush.h"
 #import "MSConnectionDelegate.h"
+#if TARGET_OS_IPHONE
 #import "MSLoginSafariViewController.h"
+#endif
 
 #pragma mark * MSClient Private Interface
 
@@ -100,9 +102,11 @@
         _login = [[MSLogin alloc] initWithClient:self];
         _push = [[MSPush alloc] initWithClient:self];
         _connectionDelegate = [[MSConnectionDelegate alloc] initWithClient:self];
-        
+
+#if TARGET_OS_IPHONE
         _loginSafariViewController = [[MSLoginSafariViewController alloc] initWithClient:self];
-        
+#endif
+		
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         _urlSession = [NSURLSession sessionWithConfiguration:configuration
                                                     delegate:self.connectionDelegate
